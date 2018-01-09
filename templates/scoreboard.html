@@ -1,0 +1,35 @@
+<!doctype html>
+<head>
+  <title>JamBoard!</title>
+</head>
+<body>
+  <div id="scoreboard">
+  </div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script>
+  $(function(){loadScores()});
+  function loadScores()
+  {
+  $(function(){
+  $.getJSON('/scores', function(data) {
+  updateScoreboard(data);
+  });
+  });
+  }
+
+  function updateScoreboard(data){
+  var scoreboard_div = document.getElementById('scoreboard');
+  $( scoreboard_div ).empty()
+  console.log(data);
+  for (var i = 0; i < data.length; i++){
+                      $( "<div id='test'><b>"+data[i][1]+"</b> is at "+data[i][0]+" Commits! </div>" ).appendTo(scoreboard_div);
+                      }
+                      
+  }
+  setInterval( loadScores, 2000 );
+
+</script>
